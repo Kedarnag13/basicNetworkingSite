@@ -1,0 +1,1 @@
+Google::UrlShortener::Base.api_key = "AIzaSyClfXj6U-L1fTLbKBUuLg0LQFxoiN5WZbE"

@@ -1,0 +1,21 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  reconnect: false
+  database: interviewExercise_development
+  pool: 5
+  username: postgres
+  password: postgres
+  host: localhost
+  port: 5432
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  reconnect: false
+  database: interviewExercise_test
+  pool: 5
+  username: postgres
+  password: postgres
+  host: localhost
+  port: 5432
