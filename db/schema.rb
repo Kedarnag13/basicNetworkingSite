@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190619153959) do
+ActiveRecord::Schema.define(version: 20190619155308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20190619153959) do
     t.string   "shortened_url"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "email"
+    t.string   "password"
   end
 
   add_foreign_key "headings", "members"
