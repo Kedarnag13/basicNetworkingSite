@@ -1,12 +1,21 @@
+<main>
 <% if @members.any? %>
-<% @members.each do |member| %>
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title"><%= member.name%></h5>
-      <p class="card-text"><%= member.original_url %></p>
+  <div class="container-fluid">
+    <div class="row">
+      <% @members.each do |member| %>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= member.name %></h5>
+            <p class="card-text"><%= member.original_url %></p>
+            <p class="card-text"><%= member.shortened_url %></p>
+          </div>
+        </div>
+      </div>
+      <% end %>
     </div>
   </div>
-<% end %>
 <% else %>
   No Members
 <% end %>
+</main>
