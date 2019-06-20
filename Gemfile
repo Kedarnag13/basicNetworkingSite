@@ -36,6 +36,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bitly', '~> 0.10.4'
 gem 'nokogiri', '~> 1.6', '>= 1.6.8'
 gem 'bcrypt'
+gem 'has_friendship'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -9,6 +9,11 @@
             <h5 class="card-title"><%= member.name %></h5>
             <p class="card-text"><%= member.original_url %></p>
             <p class="card-text"><%= member.shortened_url %></p>
+            <% if !current_user.friends_with?(member) %>
+              <%= link_to 'Add', add_as_friend_member_path(member.id), method: :put, class: 'btn btn-primary btn-sm float-right' %>
+              <% else %>
+              <%= link_to 'Remove', remove_friend_member_path(member.id), method: :put, class: 'btn btn-primary btn-sm float-right' %>
+            <% end %>
           </div>
         </div>
       </div>
