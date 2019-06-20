@@ -24,6 +24,23 @@ class MembersController < ApplicationController
     end
   end
 
+  def add_as_friend
+    friends_with = Member.find(params[:id])
+    unless current_user.friends_with?(friends_with)
+      current_user.friend_request(friends_with)
+      friends_with.accept_request(current_user)
+    end
+    redirect_to members_path
+  end
+
+  def remove_friend
+    friends_with = Member.find(params[:id])
+    if current_user.friends_with?(friends_with)
+      friends_with.remove_friend(current_user)
+    end
+    redirect_to members_path
+  end
+
   private
 
   def lets_shorten_url
