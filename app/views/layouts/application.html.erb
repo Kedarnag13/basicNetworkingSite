@@ -17,9 +17,19 @@
     </ul>
   </div>
   <ul class="nav navbar-nav navbar-right">
+    <% if !current_user %>
     <li>
-      <%= link_to 'Login', '#', { remote: true, 'data-toggle': 'modal', 'data-target': '#loginModal', class: 'btn btn-primary' } %>
+      <%= link_to 'Login', new_session_path, { remote: true, 'data-toggle': 'modal', 'data-target': '#loginModal', class: 'btn btn-primary' } %>
     </li>
+    <div id="loginModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+      <div class="modal-content">
+    </div>
+    <% else %>
+    <%= link_to 'Logout', session_path(current_user), method: :delete %>
+    <% end %>
+  </div>
+</div>
   </ul>
   <%
 =begin%>

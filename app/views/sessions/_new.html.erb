@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="myModalLabel">Login</h4>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <%= form_tag sessions_path, remote: true do %>
+    <div class="form-group">
+      <label for="inputEmail">Email address</label>
+      <%= text_field_tag :email, '', class: 'form-control', id: 'inputEmail', placeholder: 'Enter name', 'aria-describedby': 'emailHelp' %>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword">Password</label>
+      <%= text_field_tag :password, '', class: 'form-control', id: 'inputPassword', placeholder: 'Enter Password'  %>
+    </div>
+    <%= button_tag 'Login', { class: 'btn btn-primary' }  %>
+  <% end %>
+</div>

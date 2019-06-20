@@ -1,5 +1,6 @@
 require 'open-uri'
 class Member < ApplicationRecord
+  has_secure_password
   has_many :headings
   after_save :crawl_website
 
