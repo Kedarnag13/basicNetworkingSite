@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(version: 20190619155308) do
     t.string   "name"
     t.string   "original_url"
     t.string   "shortened_url"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "email"
-    t.string   "password"
+    t.string   "password_digest"
   end
 
   add_foreign_key "headings", "members"

@@ -1,6 +1,8 @@
+<% if !current_user %>
 <div class="container" style="display: flex; justify-content: center; align-items: center; height: 100vh">
   <%= link_to  "Add Member", new_member_path, { remote: true, 'data-toggle': 'modal', 'data-target': '#addMemberModal', class: 'btn btn-primary btn-lg btn-block' } %>
 </div>
+<% end %>
 <div id="addMemberModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
