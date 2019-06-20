@@ -19,6 +19,9 @@
     </ul>
   </div>
   <ul class="nav navbar-nav navbar-right">
+    <%= form_tag search_by_content_path, method: :get, class: "form-inline" do %>
+      <%= text_field_tag :term, params[:term], class: "form-control", placeholder: "Search" %>
+    <% end %>
     <% if !current_user %>
     <li>
       <%= link_to 'Login', new_session_path, { remote: true, 'data-toggle': 'modal', 'data-target': '#loginModal', class: 'btn btn-primary' } %>
