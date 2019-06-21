@@ -14,3 +14,8 @@
 
  // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+
+.form-inline {
+  position: 'relative';
+  padding-right: 10px;
+}
