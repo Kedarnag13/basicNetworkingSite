@@ -6,8 +6,9 @@ class Member < ApplicationRecord
   after_save :crawl_website
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 8 }
   validates :email, presence: true, :uniqueness => true
+  validates :original_url, presence: true
+  validates :password, presence: true, length: { minimum: 8 }
 
   def crawl_website
     if self.original_url.present?

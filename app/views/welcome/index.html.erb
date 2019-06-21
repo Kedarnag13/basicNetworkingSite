@@ -1,49 +1,52 @@
 <% if !current_user %>
-<%
+  <%
 =begin%>
- <div class="container" style="display: flex; justify-content: center; align-items: center; height: 100vh"> 
-<%
+  <div class="container" style="display: flex; justify-content: center; align-items: center; height: 100vh">
+    <%
 =end%>
-<div class="row" style="padding-top:17px;position:relative;padding-right:15px;">
-    <div class="col-sm-12">
+    <div class="row" style="padding-top:17px;position:relative;padding-right:15px;">
+      <div class="col-sm-12">
         <div class="text-right">
-            <%= link_to  "Add Member", new_member_path, { remote: true, 'data-toggle': 'modal', 'data-target': '#addMemberModal', class: 'btn btn-primary' } %>
-        </div>
-    </div>
-</div>
-<% end %>
-<div id="addMemberModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    </div>
-  </div>
-</div>
-
-<div style="padding-top: 36px;">
-<main>
-<% if @members.any? %>
-  <div class="container-fluid">
-    <div class="row">
-      <% @members.each do |member| %>
-      <div class="col-sm-6">
-        <div class="card border-dark mb-3">
-          <div class="card-header">
-            <%= member.name %>
-          </div>
-          <div class="card-body">
-            <p class="card-text"><%= member.original_url %></p>
-            <p class="card-text"><%= member.shortened_url %></p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted"><%= time_ago_in_words(member.created_at) + ' ago' %></small>
-          </div>
+          <%= link_to  "Add Member", new_member_path, { remote: true, 'data-toggle': 'modal', 'data-target': '#addMemberModal', class: 'btn btn-primary' } %>
         </div>
       </div>
-      <% end %>
+    </div>
+  <% end %>
+  <div id="addMemberModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      </div>
     </div>
   </div>
-<% else %>
-  No Members
-<% end %>
-</main>
-</div>
+  <div style="padding-top: 36px;">
+    <main>
+      <% if @members.any? %>
+        <div class="container-fluid">
+          <div class="row">
+            <% @members.each do |member| %>
+              <div class="col-sm-6">
+                <div class="card border-dark mb-3">
+                  <div class="card-header">
+                    <%= member.name %>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text"><label for="originalURL"><strong>Original URL:</strong></label> <%= member.original_url %></p>
+                    <p class="card-text"><label for="shortenedURL"><strong>Short URL:</strong></label> <%= member.shortened_url %></p>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted"><%= time_ago_in_words(member.created_at) + ' ago' %></small>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <div class="container">
+          <div class="span12">
+            Nothing to display
+          </div>
+        </div>
+      <% end %>
+    </main>
+  </div>

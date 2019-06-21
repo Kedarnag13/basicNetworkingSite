@@ -17,12 +17,16 @@ class MembersController < ApplicationController
   
   def create
     @member = Member.new(name: params[:name], original_url: params[:original_url], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
-    @member.shortened_url = lets_shorten_url.short_url
     # @member.password = generate_random_password
     if @member.valid?
+      @member.shortened_url = lets_shorten_url.short_url
       @member.save
+      flash[:success] = "Member created successfully!"
       # RegistrationsMailer.send_password(@member).deliver_now
       redirect_to root_path
+    else
+      flash.now[:danger] = @member.errors.full_messages.first
+      render 'new'
     end
   end
 
@@ -32,6 +36,7 @@ class MembersController < ApplicationController
       current_user.friend_request(friends_with)
       friends_with.accept_request(current_user)
     end
+    flash[:success] = "You have added #{friends_with.name} as your friend successfully!"
     redirect_to members_path
   end
 
@@ -40,6 +45,7 @@ class MembersController < ApplicationController
     if current_user.friends_with?(friends_with)
       friends_with.remove_friend(current_user)
     end
+    flash[:warning] = "You have removed #{friends_with.name} as your friend!"
     redirect_to members_path
   end
 
@@ -52,6 +58,7 @@ class MembersController < ApplicationController
   def search
     @members = Member.where('lower(name) LIKE ? OR upper(name) LIKE ?', "%#{params[:member_name]}%", "%#{params[:member_name]}%")
     @results = @members.map { |member| member if member.name != current_user.name }
+    @results.uniq
   end
 
   private

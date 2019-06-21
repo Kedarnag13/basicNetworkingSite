@@ -1,46 +1,49 @@
 <div id="search-results">
   <div style="padding-top: 36px;">
-<main>
-<% if @results.any? %>
-  <div class="container-fluid">
-    <div class="row">
-      <% @results.each do |result| %>
-      <% if result.class == Member %>
-        <div class="col-sm-6">
-        <div class="card border-dark mb-3">
-          <div class="card-header">
-            <%= result.name %>
+    <main>
+      <% if @results.any? %>
+        <div class="container-fluid">
+          <div class="row">
+            <% @results.each do |result| %>
+              <% if result.class == Member %>
+                <div class="col-sm-6">
+                  <div class="card border-dark mb-3">
+                    <div class="card-header">
+                      <%= result.name %>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text"><label for="originalURL"><strong>Original URL:</strong></label> <%= result.original_url %></p>
+                      <p class="card-text"><label for="shortenedURL"><strong>Short URL:</strong></label> <%= result.shortened_url %></p>
+                    </div>
+                    <div class="card-footer">
+                      <small class="text-muted"><%= time_ago_in_words(result.created_at) + ' ago' %></small>
+                    </div>
+                  </div>
+                <% elsif result.class == Heading %>
+                  <div class="col-sm-6">
+                    <div class="card border-dark mb-3">
+                      <div class="card-header">
+                        <%= result.tag_name %>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"><label for="heading"><strong>Heading:</strong></label> <%= result.heading %></p>
+                      </div>
+                      <div class="card-footer">
+                        <small class="text-muted"><%= time_ago_in_words(result.created_at) + ' ago' %></small>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
           </div>
-          <div class="card-body">
-            <p class="card-text"><%= result.original_url %></p>
-            <p class="card-text"><%= result.shortened_url %></p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted"><%= time_ago_in_words(result.created_at) + ' ago' %></small>
+        <% else %>
+        <div class="container">
+          <div class="span12">
+            Nothing to display
           </div>
         </div>
-      <% elsif result.class == Heading %>
-        <div class="col-sm-6">
-        <div class="card border-dark mb-3">
-          <div class="card-header">
-            <%= result.tag_name %>
-          </div>
-          <div class="card-body">
-            <p class="card-text"><%= result.heading %></p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted"><%= time_ago_in_words(result.created_at) + ' ago' %></small>
-          </div>
-        </div>
-      <% end %>
-      </div>
-      <% end %>
+        <% end %>
+      </main>
     </div>
   </div>
-<% else %>
-Nothing to display
-<% end %>
-</main>
-</div>
-
-</div>
