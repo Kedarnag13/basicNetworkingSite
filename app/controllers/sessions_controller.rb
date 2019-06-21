@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     member = Member.find_by(email: params[:email])
     if member && member.authenticate(params[:password])
       session[:user_id] = member.id
-      redirect_to members_path, notice: 'Logged in!'
+      redirect_to members_path, notice: 'Logged in successfully!'
     else
       render :new
     end

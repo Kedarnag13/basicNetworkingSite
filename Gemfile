@@ -46,6 +46,7 @@ group :development, :test do
   gem 'pry', platform: :mri
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
