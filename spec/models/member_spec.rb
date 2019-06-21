@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'faker'
 
 describe Member do
 
@@ -42,9 +43,8 @@ describe Member do
         member.password_confirmation = "Password@12"
         expect(member).to be_valid  
       end
-      
+
     end
-    
 
   end
 
