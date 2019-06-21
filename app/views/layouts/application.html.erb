@@ -19,10 +19,12 @@
     </ul>
   </div>
   <ul class="nav navbar-nav navbar-right" style="position:relative;padding-right:1px;">
+  <% if current_user.nil? %>
     <%= form_tag search_by_content_path, method: :get, class: "form-inline" do %>
       <%= text_field_tag :term, params[:term], class: "form-control", placeholder: "Search" %>
     <% end %>
-    <% if !current_user %>
+  <% end %>
+    <% if current_user.nil? %>
     <li>
       <%= link_to 'Login', new_session_path, { remote: true, 'data-toggle': 'modal', 'data-target': '#loginModal', class: 'btn btn-primary' } %>
     </li>
@@ -38,7 +40,7 @@
           aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user"></i> <%= current_user.name %> </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item" href="#">Profile</a>
+          <%= link_to 'Profile', my_profile_members_path, class: 'dropdown-item' %>
           <a class="dropdown-item" href="#">My Friends</a>
           <%= link_to 'Log out', session_path(current_user), method: :delete, class: 'dropdown-item' %>
         </div>
