@@ -42,7 +42,9 @@ describe SessionsController, :type => :controller do
       it "should allow the member to sign out successfully and redirect" do
         delete :destroy, params: { id: member.id }
         expect(session[:user_id]).to be_nil
-        expect(session["flash"]["flashes"]["notice"]).to eq('Logged out!')
+        # We could also do the following
+        # expect(flash["success"]).to eq('Logged out!')
+        expect(session["flash"]["flashes"]["success"]).to eq('Logged out!')
         expect(response).to redirect_to root_path
       end
       

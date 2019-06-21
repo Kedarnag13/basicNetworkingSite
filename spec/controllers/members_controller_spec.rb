@@ -40,11 +40,11 @@ describe MembersController, :type => :controller do
       }.to change{ Member.count }.by(1)
     end
 
-    it "should allow to create member with the same email" do
+    it "should not allow to create member with the same email" do
       FactoryBot.create(:member, email: 'abc@yopmail.com')
       expect{
-        post :create, params: { name: Faker::Name.name, original_url: 'https://news.google.com/?hl=en-SG&gl=SG&ceid=SG:en', email: 'abc@yopmail.com', password: 'Password@123', password_confirmation: 'Password@123'  }
-      }.to change{ Member.count }.by(0)
+        post :create, params: { name: Faker::Name.name, original_url: 'https://news.google.com/?hl=en-SG&gl=SG&ceid=SG:en', email: 'abc@yopmail.com', password: 'Password@123', password_confirmation: 'Password@123' }, xhr: true
+      }.not_to change{ Member.count }.from(1)
     end
 
   end

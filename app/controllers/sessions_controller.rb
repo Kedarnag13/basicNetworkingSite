@@ -10,7 +10,8 @@ class SessionsController < ApplicationController
     member = Member.find_by(email: params[:email])
     if member && member.authenticate(params[:password])
       session[:user_id] = member.id
-      redirect_to members_path, notice: 'Logged in successfully!'
+      flash[:success] = "Logged in successfully!"
+      redirect_to members_path
     else
       render :new
     end
@@ -18,7 +19,8 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_url, notice: 'Logged out!'
+    redirect_to root_url
+    flash[:success] = "Logged out!"
   end
 
 end
