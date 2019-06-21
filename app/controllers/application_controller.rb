@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+  #rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   helper_method :current_user
 
-  def record_not_found
-    render 'static/record_not_found'
-  end
+  # def record_not_found
+  #   render 'static/record_not_found'
+  # end
 
   private
 
