@@ -43,6 +43,17 @@ class MembersController < ApplicationController
     redirect_to members_path
   end
 
+  def my_profile
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def search
+    @members = Member.where('lower(name) LIKE ? OR upper(name) LIKE ?', "%#{params[:member_name]}%", "%#{params[:member_name]}%")
+    @results = @members.map { |member| member if member.name != current_user.name }
+  end
+
   private
 
   def lets_shorten_url

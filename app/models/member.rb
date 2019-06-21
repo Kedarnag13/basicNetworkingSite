@@ -4,6 +4,8 @@ class Member < ApplicationRecord
   has_friendship
   has_many :headings
   after_save :crawl_website
+
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 8 }
   validates :email, presence: true, :uniqueness => true
 
