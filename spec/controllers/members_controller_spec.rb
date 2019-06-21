@@ -87,6 +87,27 @@ describe MembersController, :type => :controller do
 
     end
 
+    context "My Profile" do
+
+      before do
+        member1 = FactoryBot.create(:member)
+        session[:user_id] = member1.id
+      end
+
+      it "should allow the logged in user to see his profile" do
+        get :my_profile, params: {}
+        expect(response).to render_template('my_profile')
+      end
+
+      it "should not allow to see ones profile if not logged in" do
+        session[:user_id] = nil
+        get :my_profile, params: {}
+        expect(session["flash"]["flashes"]["alert"]).to eq('You must be logged in to access this page.')
+        expect(response).to redirect_to root_path
+      end
+
+    end
+
   end
 
 end
