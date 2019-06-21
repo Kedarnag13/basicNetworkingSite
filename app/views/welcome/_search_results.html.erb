@@ -12,8 +12,8 @@
                       <%= result.name %>
                     </div>
                     <div class="card-body">
-                      <p class="card-text"><%= result.original_url %></p>
-                      <p class="card-text"><%= result.shortened_url %></p>
+                      <p class="card-text"><label for="originalURL"><strong>Original URL:</strong></label> <%= result.original_url %></p>
+                      <p class="card-text"><label for="shortenedURL"><strong>Short URL:</strong></label> <%= result.shortened_url %></p>
                     </div>
                     <div class="card-footer">
                       <small class="text-muted"><%= time_ago_in_words(result.created_at) + ' ago' %></small>
@@ -26,7 +26,7 @@
                         <%= result.tag_name %>
                       </div>
                       <div class="card-body">
-                        <p class="card-text"><%= result.heading %></p>
+                        <p class="card-text"><label for="heading"><strong>Heading:</strong></label> <%= result.heading %></p>
                       </div>
                       <div class="card-footer">
                         <small class="text-muted"><%= time_ago_in_words(result.created_at) + ' ago' %></small>
@@ -38,7 +38,11 @@
             </div>
           </div>
         <% else %>
-          Nothing to display
+        <div class="container">
+          <div class="span12">
+            Nothing to display
+          </div>
+        </div>
         <% end %>
       </main>
     </div>

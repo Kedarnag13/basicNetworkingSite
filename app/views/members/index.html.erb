@@ -1,33 +1,37 @@
 <div style="padding-top: 36px;">
-<main>
-<% if @members.any? %>
-  <div class="container-fluid">
-    <div class="row">
-      <% @members.each do |member| %>
-      <div class="col-sm-6">
-        <div class="card border-dark mb-3">
-          <div class="card-header">
-            <%= member.name %>
-          </div>
-          <div class="card-body">
-            <p class="card-text"><%= member.original_url %></p>
-            <p class="card-text"><%= member.shortened_url %></p>
-            <% if !current_user.friends_with?(member) %>
-              <%= link_to 'Add', add_as_friend_member_path(member.id), method: :put, class: 'btn btn-primary btn-sm float-right' %>
-              <% else %>
-              <%= link_to 'Remove', remove_friend_member_path(member.id), method: :put, class: 'btn btn-primary btn-sm float-right' %>
-            <% end %>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted"><%= time_ago_in_words(member.created_at) + ' ago' %></small>
-          </div>
+  <main>
+    <% if @members.any? %>
+      <div class="container-fluid">
+        <div class="row">
+          <% @members.each do |member| %>
+            <div class="col-sm-6">
+              <div class="card border-dark mb-3">
+                <div class="card-header">
+                  <%= member.name %>
+                </div>
+                <div class="card-body">
+                  <p class="card-text"><label for="originalURL"><strong>Original URL:</strong></label> <%= member.original_url %></p>
+                  <p class="card-text"><label for="shortenedURL"><strong>Short URL:</strong></label> <%= member.shortened_url %></p>
+                  <% if !current_user.friends_with?(member) %>
+                    <%= link_to 'Add', add_as_friend_member_path(member.id), method: :put, class: 'btn btn-primary btn-sm float-right' %>
+                  <% else %>
+                    <%= link_to 'Remove', remove_friend_member_path(member.id), method: :put, class: 'btn btn-primary btn-sm float-right' %>
+                  <% end %>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted"><%= time_ago_in_words(member.created_at) + ' ago' %></small>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
-      <% end %>
-    </div>
-  </div>
-<% else %>
-  No Members
-<% end %>
-</main>
+    <% else %>
+      <div class="container">
+        <div class="span12">
+          Nothing to display
+        </div>
+      </div>
+    <% end %>
+  </main>
 </div>
