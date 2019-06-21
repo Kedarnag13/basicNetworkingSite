@@ -49,4 +49,44 @@ describe MembersController, :type => :controller do
 
   end
 
+  context "Friendship" do
+
+    context "Accept" do
+
+      it "should allow to send and accept friend request" do
+        member1 = FactoryBot.create(:member)
+        session[:user_id] = member1.id
+        member2 = FactoryBot.create(:member)
+        put :add_as_friend, params: { id: member2 }
+        expect(member1.friends_with?(member2)).to be_truthy
+        expect(member1.friends).to include(member2)
+        expect(response).to redirect_to members_path
+      end
+
+      it "should not allow to send and accept friend request without user logged in" do
+        member1 = FactoryBot.create(:member)
+        member2 = FactoryBot.create(:member)
+        put :add_as_friend, params: { id: member2 }
+        expect(session["flash"]["flashes"]["alert"]).to eq('You must be logged in to access this page.')
+        expect(response).to redirect_to root_path
+      end
+
+    end
+
+    context "Remove" do
+
+      it "should allow the logged in user to remove friend from list" do
+        member1 = FactoryBot.create(:member)
+        session[:user_id] = member1.id
+        member2 = FactoryBot.create(:member)
+        put :remove_friend, params: { id: member2 }
+        expect(member1.friends_with?(member2)).to be_falsey
+        expect(member1.friends).not_to include(member2)
+        expect(response).to redirect_to members_path
+      end
+
+    end
+
+  end
+
 end
