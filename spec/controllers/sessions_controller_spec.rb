@@ -4,6 +4,15 @@ describe SessionsController, :type => :controller do
 
   describe "Login" do
 
+    context "New" do
+
+      it "should pop up the new member form" do
+        get :new, params: {}, xhr: true, format: :js
+        expect(response).to render_template('new')
+      end
+
+    end
+
     context "Create" do
       
       let(:member) { FactoryBot.create(:member, password: 'Password@123', password_confirmation: 'Password@123') }
