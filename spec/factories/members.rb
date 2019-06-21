@@ -5,7 +5,7 @@ FactoryBot.define do
     name { Faker::Name.name }
     original_url { "https://stackoverflow.com/" }
     email { Faker::Internet.email }
-    password { Faker::Internet.password }
-    password_confirmation { Faker::Internet.password }
+    password { 'Password@123' }
+    password_confirmation { 'Password@123' }
   end
 end

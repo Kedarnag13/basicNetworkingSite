@@ -1,5 +1,7 @@
 class MembersController < ApplicationController
 
+  before_action :authorize, except: [:new, :create]
+
   def index
     @members = Member.where.not(id: current_user.id)
     respond_to do |format|
