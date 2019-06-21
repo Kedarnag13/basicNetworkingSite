@@ -79,6 +79,8 @@ describe MembersController, :type => :controller do
         member1 = FactoryBot.create(:member)
         session[:user_id] = member1.id
         member2 = FactoryBot.create(:member)
+        member1.friend_request(member2)
+        member2.accept_request(member1)
         put :remove_friend, params: { id: member2 }
         expect(member1.friends_with?(member2)).to be_falsey
         expect(member1.friends).not_to include(member2)
@@ -104,6 +106,21 @@ describe MembersController, :type => :controller do
         get :my_profile, params: {}
         expect(session["flash"]["flashes"]["alert"]).to eq('You must be logged in to access this page.')
         expect(response).to redirect_to root_path
+      end
+
+    end
+
+    context "Search" do
+
+      before do
+        member1 = FactoryBot.create(:member)
+        session[:user_id] = member1.id
+      end
+
+      it "should allow to search for other members to connect" do
+        member2 = FactoryBot.create(:member, name: 'RKReloaded')
+        get :search, params: { member_name: 'rk' }
+        expect(response).to render_template('search')
       end
 
     end
