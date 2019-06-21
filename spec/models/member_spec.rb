@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'faker'
 
 describe Member do
 
