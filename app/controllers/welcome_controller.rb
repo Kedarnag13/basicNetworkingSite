@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
   
   def index
+    @members = Member.all
   end
 
   def search
