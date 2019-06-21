@@ -4,6 +4,11 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %>
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  </div>
+<% end %>
 <div class="modal-body">
   <%= form_tag sessions_path, remote: true do %>
     <div class="form-group">
@@ -13,7 +18,7 @@
     </div>
     <div class="form-group">
       <label for="inputPassword">Password</label>
-      <%= text_field_tag :password, '', class: 'form-control', id: 'inputPassword', placeholder: 'Enter Password'  %>
+      <%= password_field_tag :password, '', class: 'form-control', id: 'inputPassword', placeholder: 'Enter Password'  %>
     </div>
     <%= button_tag 'Login', { class: 'btn btn-primary' }  %>
   <% end %>

@@ -18,7 +18,7 @@ describe MembersController, :type => :controller do
       session[:user_id] = nil
       get :index, params: {}
       expect(response).to redirect_to root_path
-      expect(session["flash"]["flashes"]["alert"]).to eq('You must be logged in to access this page.')
+      expect(session["flash"]["flashes"]["danger"]).to eq('You must be logged in to access this page.')
     end
 
   end
@@ -67,7 +67,7 @@ describe MembersController, :type => :controller do
         member1 = FactoryBot.create(:member)
         member2 = FactoryBot.create(:member)
         put :add_as_friend, params: { id: member2 }
-        expect(session["flash"]["flashes"]["alert"]).to eq('You must be logged in to access this page.')
+        expect(session["flash"]["flashes"]["danger"]).to eq('You must be logged in to access this page.')
         expect(response).to redirect_to root_path
       end
 
@@ -104,7 +104,7 @@ describe MembersController, :type => :controller do
       it "should not allow to see ones profile if not logged in" do
         session[:user_id] = nil
         get :my_profile, params: {}
-        expect(session["flash"]["flashes"]["alert"]).to eq('You must be logged in to access this page.')
+        expect(session["flash"]["flashes"]["danger"]).to eq('You must be logged in to access this page.')
         expect(response).to redirect_to root_path
       end
 
