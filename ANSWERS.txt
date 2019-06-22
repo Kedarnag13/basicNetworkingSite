@@ -1,0 +1,35 @@
+1. Briefly explain the GIL assuming you were addressing a non-technical audience. What are the potential cost implications of the GIL for scaling a production application?
+
+  1. To begin with, let me explain what GIL is(in terms with Ruby).
+    a. GIL prevents from running mutiple threads simultaneously.
+    b. What this means to us is, no matter how many threads we spawn, MRI will never execute code in multiple threads simultaneously.
+  2. When kind of problems do GIL cause?
+    a.  Mostly performance, because GIL cannot run mutiple threads concurrently.
+  3. Does that mean we cannot run our applications concurrently?
+    a. No, we can with the help of Threads.
+  4. Does this affect scalability?
+    a. Not really, Lets see, when we build an application it can actually handle certain amount of requests without an issue, for example 1000 requests per hour/minute.
+    b. If the application is processing CPU intensive and requires large process cache, we would want to run maximum threads within a single process rather than have a large number of concurrent processes. In this scenario, we're better off doing shared memory.
+
+
+2. Also, for a non-tecnical audience, explain how a background job queuing service could help when accessing external APIs
+
+  1. Most often our applications integrate with external APIs. User could click a button but the application makes multiple API calls behind the scenes.
+  2. This process could actually take a lot of time, where one call could be successful but others could fail.
+  3. Consider the example of an online ticketing system.
+  4. When a user wants to buy a ticket, the application would make an API call to block the seats, If the first API succeeds, we make another API call to make the payment(assuming it's a card payment), then we make another API call to get the card information and token, and if the call was successful, we could call another API to generate the final receipt.
+  5. The above is not only difficult to maintain in terms of code, but all the API's have to succeed before response comes back to the user. We could easily end up doubling or tripling our response times.
+  6. This is one of the scenarios where Background Job would help.
+    1. Speed
+      a. As we saw of the scenario of multiple external calls being made by our application, unless the API's are physically located close to our infrastructure, there's going to be delay invloved.
+      b. If we continue to do this, then our API response times could be worse, which could lead to sluggish application and unhappy users.
+      c. To overcome this, if we could move the API calls to a backgound queue, we can return the response immediately while our queue takes as long as it wants to complete the execution of the API.
+    
+    2. Scalability
+      a. Let me give an example of one of my own micro service, where the application is using ImageMagick with libvips to resize and optimize the image and then store them on s3. This kind of API are CPU intensive, and this would slow down other image resizing request, indirectly, slowing down our entire application.
+      b. One approach we could take is to move all of those resizing requests into a background queue, and even if this queue is overloaded with requests, our application will still continue to remain responsive.
+    
+    3. Reliability
+      a. As our applications would be using external APIs, we would not have any kind of control on the downtime of those services, however, that shouldn't impact the users.
+      b. If we were to make our calls directly, our application wouldn't have a fallback mechanism.
+      c. Background jobs help us by retrying those calls silently in the background, and all the while our users never know what happened.
